@@ -1,0 +1,182 @@
+<div id="admin_links">
+	<span><a href="<?php echo $this->url('home/view', array('username'=>$this->current_user)) ?>"><?php echo $this->translate('My profile') ?></a></span>
+</div>
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url('home/view/edit', array('username'=>$this->username)));
+$form->setAttribute('method', 'post');
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formHidden($form->get('gender'));
+?>
+<div class="jumbotron">
+	<div class="flashMessages">
+		<?php 
+			foreach($this->flashMessenger()->getMessages() as $message) { 
+			     echo $message;
+			} 
+	     ?>
+    </div>
+	<table>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('email')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('email'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('email'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('confirm_password')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('confirm_password'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('confirm_password'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('password')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('password'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('password'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('first_name')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('first_name'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('first_name'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('surname')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('surname'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('surname'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('country')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('country'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('country'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('city')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('city'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('city'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('birthday')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('birthday'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('birthday'));?>
+			</td>
+		</tr>
+			<tr>
+				<td>
+					<?= $this->formLabel($form->get('status')); ?>
+				</td>
+				<td>
+					<?=$this->formElement($form->get('status'));?>
+				</td>
+				<td>
+					<?=$this->formElementErrors($form->get('status'));?>
+				</td>
+			</tr>
+			<?php if($form->get('gender')->getValue() == User\Model\Gender::MALE):?>
+			<tr>
+				<td>
+					<?= $this->formLabel($form->get('body_type')); ?>
+				</td>
+				<td>
+					<?=$this->formElement($form->get('body_type'));?>
+				</td>
+				<td>
+					<?=$this->formElementErrors($form->get('body_type'));?>
+				</td>
+			</tr>
+			<?endif;?>
+			<?php if($form->get('gender')->getValue() == User\Model\Gender::FEMALE):?>
+			<tr class="user_body">
+				<td>
+					<?=$this->formLabel($form->get('breast')); ?>
+				</td>
+				<td>
+					<?=$this->formElement($form->get('breast'));?>
+				</td>
+				<td>
+					<?=$this->formElementErrors($form->get('breast'));?>
+				</td>
+			</tr>
+			<tr class="user_body">
+				<td>
+					<?=$this->formLabel($form->get('waist')); ?>
+				</td>
+				<td>
+					<?=$this->formElement($form->get('waist'));?>
+				</td>
+				<td>
+					<?=$this->formElementErrors($form->get('waist'));?>
+				</td>
+			</tr>
+			<tr class="user_body">
+				<td>
+					<?= $this->formLabel($form->get('hips')); ?>
+				</td>
+				<td>
+					<?=$this->formElement($form->get('hips'));?>
+				</td>
+				<td>
+					<?=$this->formElementErrors($form->get('hips'));?>
+				</td>
+			</tr>
+		<?endif;?>
+		<tr>
+			<td>
+				<span><a href="<?php echo $this->url('home/view', array('username'=>$this->username)) ?>"><?php echo $this->translate('Back') ?></a></span>
+			</td>
+			<td>
+				<?php if($this->current_user == $this->username): $this->formElement($form->get('submit'));endif;?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('body_type'));?>
+			</td>
+		</tr>
+		<?php echo $this->form()->closeTag() ?>
+	</table>
+</div>

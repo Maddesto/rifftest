@@ -1,0 +1,141 @@
+<div class="row">
+		<div id="admin_links">
+		<span><a href="<?=$this->url('logout') ?>" style="float: right;"><?php echo $this->translate('Logout') ?></a></span>
+	</div>
+</div>
+<div class="jumbotron">
+	<div class="flashMessages">
+		<?php 
+			foreach($this->flashMessenger()->getMessages() as $message) { 
+			     echo $message;
+			} 
+	     ?>
+    </div>
+	<div class="row">
+			<div class="panel panel-default user-info-left">
+	        	<div class="panel-body">
+
+	        		<ul>
+	        			<li style="text-align: center">
+	        				<?=$this->escapeHtml($user_info->first_name)?>	
+	        			</li>
+	        			<li>
+	        				<?=$this->escapeHtml($user_info->surname)?>	
+	        			</li>
+	        		</ul>
+	        	</div>
+	        	<div id="user_photo">			
+				<?php
+				if($user_info->photo){
+					$element = new \Zend\Form\Element\Image('user-photo');
+					$element->setAttribute('src', $user_info->photo);
+					$element->setAttribute('id', 'user-photo');
+					echo $this->formImage($element);
+				}
+					?>
+				</div>
+				<?php 
+					$photo_form = $this->photo_form;
+					$photo_form->prepare();
+					$photo_form->setAttribute('action', $this->url('home/view', array('username' => $user_info->username)));
+					$photo_form->setAttribute('method', 'post');
+					echo $this->form()->openTag($photo_form);
+				?>	
+					<table>
+						<tr>
+							<td> 
+							<?=$this->formElement($photo_form->get('image'));?> 
+							</td>
+							<td><?php if($this->current_user == $this->username): echo $this->formElement($photo_form->get('submit'));endif;?>
+							</td>
+						</tr>
+						<tr><td rowspan="2">
+							<?=$this->formElementErrors($photo_form->get('image'));?>
+						</td></tr>		
+					</table>
+				<?=$this->form()->closeTag() ?>
+				<p>
+					<?php if($this->current_user == $this->username):?> <a class="btn btn-success" href="<?=$this->url('home/view/edit', array('username' => $user_info->username))?>" style="margin-left: 45%;"><?php echo $this->translate('Edit'); endif;?></a>
+				</p>
+			</div>
+			<div class="panel panel-default user-info-right">
+	        	<div class="panel-body">
+					<table>
+						<tr>
+							<td>
+								 <?=$this->translate('Country');?>
+							</td>
+							<td>
+								<?=$this->escapeHtml($user_info->country)?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<?=$this->translate('City');?>
+							</td>
+							<td>
+								<?=$this->escapeHtml($user_info->city)?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<?=$this->translate('Birth date');?>
+							</td>
+							<td>
+								<?php $date = new \DateTime($user_info->birthday);
+								echo $this->escapeHtml($date->format('d.m.Y'));?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<?=$this->translate('Marital status');?>
+							</td>
+							<td>
+								<?php $statuses = User\Model\MaritalStatus::returnArray();
+								echo $this->escapeHtml($statuses[$user_info->status])?>
+							</td>
+						</tr>
+						<?php if($user_info->gender == \User\Model\Gender::MALE):?>
+						<tr>
+							<td>
+								<?=$this->translate('Body type');?>
+							</td>
+							<td>
+								<?php
+								$types = User\Model\BodyType::returnArray();
+								echo $this->escapeHtml($types[$user_info->body_type])?>
+							</td>
+						</tr>
+						<?php endif; ?>
+						<?php if($user_info->gender == \User\Model\Gender::FEMALE):?>
+						<tr>
+							<td>
+								<?=$this->translate('Breast');?>
+							</td>
+							<td>
+								<?=$this->escapeHtml($user_info->breast)?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<?=$this->translate('Waist');?>
+							</td>
+							<td>
+								<?=$this->escapeHtml($user_info->waist)?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<?=$this->translate('Hips');?>
+							</td>
+							<td>
+								<?=$this->escapeHtml($user_info->hips)?>
+							</td>
+						</tr>
+						<?php endif; ?>
+					</table>
+				</div>
+			</div>	
+		</div>
+</div>
+

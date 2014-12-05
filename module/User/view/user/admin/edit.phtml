@@ -1,0 +1,152 @@
+<div id="admin_links">
+		<span><a href="<?php echo $this->url('admin/user_list', array('type'=>User\Model\Gender::MALESTR)) ?>"><?php echo $this->translate('Man') ?></a></span>|
+	<span><a href="<?php echo $this->url('admin/user_list', array('type'=>User\Model\Gender::FEMALESTR)) ?>"><?php echo $this->translate('Woman') ?></a></span>|	
+	<span><a href="<?=$this->url('admin/logout')?>"><?=$this->translate('Logout')?></a></span>
+</div>
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url('admin/user_list/admin_edit', array('type'=>$this->type,'user_name'=>$this->user_name)));
+$form->setAttribute('method', 'post');
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formHidden($form->get('gender'));
+echo $this->formHidden($form->get('email'));
+?>
+<div class="jumbotron">
+	<div class="flashMessages">
+	<?php 
+		foreach($this->flashMessenger()->getMessages() as $message) { 
+		     echo $message;
+		} 
+     ?>
+    </div>
+	<table>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('first_name')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('first_name'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('first_name'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('surname')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('surname'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('surname'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('country')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('country'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('country'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('city')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('city'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('city'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('birthday')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('birthday'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('birthday'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('status')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('status'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('status'));?>
+			</td>
+		</tr>
+		<?php if($form->get('gender')->getValue()==User\Model\Gender::MALE):?>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('body_type')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('body_type'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('body_type'));?>
+			</td>
+		</tr>
+		<?endif;?>
+		<?php if($form->get('gender')->getValue()==User\Model\Gender::FEMALE):?>
+		<tr class="user_body">
+			<td>
+				<?=$this->formLabel($form->get('breast')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('breast'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('breast'));?>
+			</td>
+		</tr>
+		<tr class="user_body">
+			<td>
+				<?=$this->formLabel($form->get('waist')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('waist'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('waist'));?>
+			</td>
+		</tr>
+		<tr class="user_body">
+			<td>
+				<?= $this->formLabel($form->get('hips')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('hips'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('hips'));?>
+			</td>
+		</tr>
+		<?endif;?>
+		<tr>
+			<td>
+			<a href="<?php echo $this->url('admin/user_list', array('type'=>$this->type)) ?>"><?php echo $this->translate('Back') ?></a>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('submit'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('body_type'));?>
+			</td>
+		</tr>
+		<?php echo $this->form()->closeTag() ?>
+	</table>
+</div>

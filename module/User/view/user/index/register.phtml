@@ -1,0 +1,220 @@
+<script>
+function checkBodyFields(){
+	var checked = null;
+	var element = $(".gender").each(function(el){
+		if(this.checked == true){
+			checked = this.value;	
+		}
+	});
+	if(checked == "f"){
+		$(".user_body").show();
+		$(".body_type").hide();
+	}else{
+		$(".user_body").hide();
+		$(".body_type").show();
+	}
+}
+$( document ).ready(function(){
+	$(".gender").change(function (){
+		checkBodyFields();	
+	});
+	checkBodyFields();
+});
+
+</script>
+
+
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url(NULL, array('controller'=>'index', 'action' => 'register')));
+$form->setAttribute('method', 'post');
+echo $this->form()->openTag($form);
+?>
+<div class="jumbotron">
+	<div class="flashMessages">
+		<?php 
+			foreach($this->flashMessenger()->getMessages() as $message) { 
+			     echo $message;
+			} 
+	     ?>
+    </div>
+	<table>
+		<tr>
+			<td>
+				<?=$this->formLabel($form->get('gender')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('gender'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('gender'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('email')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('email'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('email'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('password')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('password'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('password'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('confirm_password')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('confirm_password'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('confirm_password'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('username')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('username'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('username'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('first_name')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('first_name'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('first_name'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('surname')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('surname'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('surname'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('country')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('country'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('country'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('city')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('city'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('city'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('birthday')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('birthday'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('birthday'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?= $this->formLabel($form->get('status')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('status'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('status'));?>
+			</td>
+		</tr>
+		<tr class="body_type">
+			<td>
+				<?= $this->formLabel($form->get('body_type')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('body_type'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('body_type'));?>
+			</td>
+		</tr>
+		<tr class="user_body">
+			<td>
+				<?=$this->formLabel($form->get('breast')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('breast'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('breast'));?>
+			</td>
+		</tr>
+		<tr class="user_body">
+			<td>
+				<?=$this->formLabel($form->get('waist')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('waist'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('waist'));?>
+			</td>
+		</tr>
+		<tr class="user_body">
+			<td>
+				<?= $this->formLabel($form->get('hips')); ?>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('hips'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('hips'));?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+				<?=$this->formElement($form->get('submit'));?>
+			</td>
+			<td>
+				<?=$this->formElementErrors($form->get('body_type'));?>
+			</td>
+		</tr>
+		<?php echo $this->form()->closeTag() ?>
+	</table>
+</div>

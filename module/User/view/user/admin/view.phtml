@@ -1,0 +1,82 @@
+
+<div class="row">
+	<div id="admin_links">
+		<?php 
+			if($this->genderType == User\Model\Gender::MALESTR):
+				echo "<span>".$this->translate("Man")."</span>";
+			?>|
+			<span><a href="<?php echo $this->url('admin/user_list', array('type'=>User\Model\Gender::FEMALESTR)) ?>"><?php echo $this->translate('Woman') ?></a></span>	
+			<?php else:?>
+			<span><a href="<?php echo $this->url('admin/user_list', array('type'=>User\Model\Gender::MALESTR)) ?>"><?php echo $this->translate('Man') ?></a></span>|	
+			<?="<span>".$this->translate("Woman")."</span>";?>
+			<?php endif;?>|
+			<span><a href="<?=$this->url('admin/logout')?>"><?=$this->translate('Logout')?></a></span>
+	</div>
+</div>
+<div class="jumbotron">
+	<div class="row">
+		<table id="userstable">
+			<thead>
+				<th>
+					 <?=$this->translate('Name');?>
+				</th>
+				<th>
+					
+					 <?=$this->translate('Last Name');?>
+				</th>
+				<th>
+					
+					<?=$this->translate('Email');?>
+				</th>
+				<th>
+					
+					<?=$this->translate('Birthday');?>
+				</th>
+				<th>
+					
+					<?=$this->translate('Country');?>
+				</th>
+				<th>
+					
+					<?=$this->translate('City');?>
+				</th>
+				<th>
+					
+					<?=$this->translate('Action');?>
+				</th>
+			</thead>
+			<tbody>
+			
+		
+		<?php foreach ($this->paginator as $item): ?>
+  			<tr>
+  				<td>
+  					<?=$item->first_name?>
+  				</td>
+  				<td>
+  					<?=$item->surname?>
+  				</td>
+  				<td>
+  					<?=$item->email?>
+  				</td>
+  				<td>
+  					<?=$item->birthday?>
+  				</td>
+  				<td>
+  					<?=$item->country?>
+  				</td>
+  				<td>
+  					<?=$item->city?>
+  				</td>
+  				<td>
+  					<a href="<?php echo $this->url('admin/user_list/admin_edit', array('type'=>$this->genderType, 'user_name'=>$item->username)) ?>"><?php echo $this->translate('Edit') ?></a>
+  				</td>
+  			</tr>
+		<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
+</div>
+	<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding',
+                                    'pager', array('route' => 'admin/user_list/pager', 'type' => $this->genderType)); ?>   

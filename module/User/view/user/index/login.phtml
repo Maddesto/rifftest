@@ -1,0 +1,69 @@
+<div class="row">
+<?php 
+	$form = $this->form;
+	$form->prepare();
+	$form->setAttribute('action', $this->url(NULL, array('controller'=>'Index', 'action' => 'login')));
+	$form->setAttribute('method', 'post');
+
+?>
+    <div class="col-md-4  login-form">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Welcome to dating portal!</h3>
+            </div>
+            <div class="panel-body">
+              	<table>
+              	<?= $this->form()->openTag($form);?>
+              	<tr>
+              		<td>
+              			<?=$this->formLabel($form->get('email'));?>
+              		</td>
+              		<td>
+              			<?php 
+						    echo $this->formElement($form->get('email'));
+						?>	
+              		</td>
+              		<td rowspan="4">
+              			<div class="login-submit">
+              			 <?php 	
+	              		    echo $this->formElement($form->get('submit'));
+	    					//echo $this->formElementErrors($form->get('submit'));
+	    				  ?>
+	    				  </div>
+              		</td>
+              	</tr>
+              	<tr>
+              		 <td colspan="2">
+             			<?=$this->formElementErrors($form->get('email'));?>
+              		</td>
+              	</tr>
+              	<tr>
+              		<td>
+              			<?=$this->formLabel($form->get('password'));?>
+              		</td>
+              		<td>
+              			<?php 
+						    echo $this->formElement($form->get('password'));
+						?>
+              		</td>
+              	</tr>
+              	<tr>
+              		<td colspan="2">
+             			<?=$this->formElementErrors($form->get('password'));?>
+              		</td>
+              	</tr>
+              	<?=$this->form()->closeTag() ?>
+              	</table>
+              	<a href="<?php echo $this->url('register') ?>"><?php echo $this->translate('Register') ?></a>
+            </div>
+            <div class="flashMessages">
+				<?php 
+					foreach($this->flashMessenger()->getMessages() as $message) { 
+					     echo $message;
+					} 
+			     ?>
+		    </div>
+        </div>
+    </div>
+
+</div>
