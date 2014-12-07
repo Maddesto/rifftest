@@ -1,5 +1,5 @@
 <div id="admin_links">
-	<span><a href="<?php echo $this->url('home/view', array('username'=>$this->current_user)) ?>"><?php echo $this->translate('My profile') ?></a></span>
+	<span><a href="<?php echo $this->url('home/view', array('username'=>$this->username)) ?>"><?php echo $this->translate('My profile') ?></a></span>
 </div>
 <?php
 $form = $this->form;
@@ -171,7 +171,7 @@ echo $this->formHidden($form->get('gender'));
 				<span><a href="<?php echo $this->url('home/view', array('username'=>$this->username)) ?>"><?php echo $this->translate('Back') ?></a></span>
 			</td>
 			<td>
-				<?php if($this->current_user == $this->username): $this->formElement($form->get('submit'));endif;?>
+				<?=$this->formElement($form->get('submit'));?>
 			</td>
 			<td>
 				<?=$this->formElementErrors($form->get('body_type'));?>

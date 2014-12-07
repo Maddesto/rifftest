@@ -46,7 +46,7 @@
 							<td> 
 							<?=$this->formElement($photo_form->get('image'));?> 
 							</td>
-							<td><?php if($this->current_user == $this->username): echo $this->formElement($photo_form->get('submit'));endif;?>
+							<td><?= $this->formElement($photo_form->get('submit'));?>
 							</td>
 						</tr>
 						<tr><td rowspan="2">
@@ -55,7 +55,7 @@
 					</table>
 				<?=$this->form()->closeTag() ?>
 				<p>
-					<?php if($this->current_user == $this->username):?> <a class="btn btn-success" href="<?=$this->url('home/view/edit', array('username' => $user_info->username))?>" style="margin-left: 45%;"><?php echo $this->translate('Edit'); endif;?></a>
+					<a class="btn btn-success" href="<?=$this->url('home/view/edit', array('username' => $user_info->username))?>" style="margin-left: 45%;"><?php echo $this->translate('Edit');?></a>
 				</p>
 			</div>
 			<div class="panel panel-default user-info-right">

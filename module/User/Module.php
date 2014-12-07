@@ -57,7 +57,7 @@ class Module
 			foreach ($resources as $resource) {
 				 // Edit 4
 				 if(!$acl ->hasResource($resource))
-					$acl -> addResource(new \Zend\Permissions\Acl\Resource\GenericResource($resource));
+					$acl->addResource(new \Zend\Permissions\Acl\Resource\GenericResource($resource));
 			}
 			//adding restrictions
 			foreach ($resources as $resource) {
