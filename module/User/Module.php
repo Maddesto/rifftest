@@ -81,11 +81,21 @@ class Module
 		}else{
 			$userRole = 'guest';
 		}
+		if($userRole == 'user'){
+			$username = $e->getRouteMatch()->getParam('username');
+			if(!empty($username) && $authAdapter->getIdentity()->username != $username){
+				$url = $router->assemble(array('username'=>$authAdapter->getIdentity()->username), array('name' => 'home/view'));
+				$response = $e->getResponse();
+				$response->setStatusCode(302);
+				$response->getHeaders()->addHeaderLine('Location', $url);
+				$e->stopPropagation();
+			}
+		}
 	 
 		if (/*$e->getViewModel()->acl->hasResource($route) && */!$e->getViewModel()->acl->isAllowed($userRole, $route)) {
 			$router = $e->getRouter();
 			if($userRole == 'user'){
-				$url    = $router->assemble(array('username'=>$authAdapter->getIdentity()->username), array('name' => 'home/view'));
+				$url = $router->assemble(array('username'=>$authAdapter->getIdentity()->username), array('name' => 'home/view'));
 			}elseif($userRole == 'admin'){
 				$url    = $router->assemble(array('type'=>\User\Model\Gender::MALESTR), array('name' => 'admin/user_list'));
 			}else $url = $router->assemble(array(), array('name' => 'login'));

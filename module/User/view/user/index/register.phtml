@@ -32,13 +32,12 @@ $form->setAttribute('method', 'post');
 echo $this->form()->openTag($form);
 ?>
 <div class="jumbotron">
-	<div class="flashMessages">
-		<?php 
-			foreach($this->flashMessenger()->getMessages() as $message) { 
-			     echo $message;
-			} 
-	     ?>
-    </div>
+	<?php 
+	foreach($this->flashMessenger()->getMessages() as $message):?>
+		<div class="flashMessages">
+			<?=$message;?>
+		</div>
+	<? endforeach;?>
 	<table>
 		<tr>
 			<td>

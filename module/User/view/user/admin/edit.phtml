@@ -14,13 +14,12 @@ echo $this->formHidden($form->get('gender'));
 echo $this->formHidden($form->get('email'));
 ?>
 <div class="jumbotron">
-	<div class="flashMessages">
 	<?php 
-		foreach($this->flashMessenger()->getMessages() as $message) { 
-		     echo $message;
-		} 
-     ?>
-    </div>
+	foreach($this->flashMessenger()->getMessages() as $message):?>
+		<div class="flashMessages">
+			<?=$message;?>
+		</div>
+	<? endforeach;?>
 	<table>
 		<tr>
 			<td>

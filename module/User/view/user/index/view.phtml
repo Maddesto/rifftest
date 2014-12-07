@@ -4,13 +4,14 @@
 	</div>
 </div>
 <div class="jumbotron">
-	<div class="flashMessages">
+	
 		<?php 
-			foreach($this->flashMessenger()->getMessages() as $message) { 
-			     echo $message;
-			} 
-	     ?>
-    </div>
+			foreach($this->flashMessenger()->getMessages() as $message):?>
+			<div class="flashMessages">
+				<?=$message;?>
+			</div>
+		<? endforeach;?>
+
 	<div class="row">
 			<div class="panel panel-default user-info-left">
 	        	<div class="panel-body">
