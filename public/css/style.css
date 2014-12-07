@@ -84,3 +84,11 @@ td{
 #userstable th{
 	background: grey;
 }
+
+.flashMessages{
+	background: green;
+	width: 400px;
+	padding: 1px;
+	border: 0px solid grey;
+	border-radius: 4px;
+}

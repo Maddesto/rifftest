@@ -83,7 +83,17 @@ class IndexController extends AbstractActionController
     	$userinfo = $usersTable->getUserByUsername($username);
     	$request = $this->getRequest();
     	if ($request->isPost()) {
-    		
+    		$message = 'Invalid file';
+    		$image = $request->getFiles('image');
+    		$validator = new \Zend\Validator\File\IsImage(array('enableHeaderCheck'=>true));
+    		if ($validator->isValid($image)) {
+    			$usersTable->setPhoto($userinfo->id, $image);
+    			$message = 'Updated Successfully';
+    		}
+    		$this->flashMessenger()->addMessage($message);
+    		return $this->redirect()->toRoute('home/view', array(
+    				'username'=>$username));
+	
     	}
     	return new ViewModel(array('photo_form' => $photoForm,'user_info' => $userinfo, 'username' => $username));
     }
@@ -147,14 +157,20 @@ incorrect. Please try again');
     		$form->setInputFilter($filter->getInputFilter());
     		$form->setData($request->getPost());
     		if ($form->isValid()) {
-    			$user = new Users();
-    			$usersTable = $this->getServiceLocator()->get('UsersTable'); 
-    			$user->exchangeArray($form->getData());
-    			$user->setPassword($this->params()->fromPost('password'));
-    			if($usersTable->saveUser($user)){
-    				//$this->flashMessenger()->addMessage('Register Successfully');
-    				return $this->redirect()->toRoute('confirm');
-    			}
+				$this->getServiceLocator()->get('Zend\Db\Adapter\Adapter')->getDriver()->getConnection()->beginTransaction();
+				try{
+					$user = new Users();
+					$usersTable = $this->getServiceLocator()->get('UsersTable'); 
+					$user->exchangeArray($form->getData());
+					$user->setPassword($this->params()->fromPost('password'));
+					$usersTable->saveUser($user);
+				}catch(\Exception $e){
+					$this->getServiceLocator()->get('Zend\Db\Adapter\Adapter')->getDriver()->getConnection()->rollback();
+					$this->flashMessenger()->addMessage($e->getMessage());
+					return $this->redirect()->toRoute('register');
+				} 
+    			$this->getServiceLocator()->get('Zend\Db\Adapter\Adapter')->getDriver()->getConnection()->commit();
+    			return $this->redirect()->toRoute('confirm');
     		}
     	}
     	return new ViewModel(array('form' => $form));
