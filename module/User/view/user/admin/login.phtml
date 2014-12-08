@@ -1,10 +1,4 @@
 <div class="row">
-<?php if ($this->error): ?>
-<p class="error">
-    There were one or more isues with your submission. Please correct them as 
-    indicated below.
-</p>
-<?php endif ?>
 <?php 
 	$form = $this->form;
 	$form->prepare();
@@ -43,21 +37,23 @@
 					</td>
               	</tr>
 				<tr>
-					<td rowspan=3>
+					<td>
               			<div class="login-submit">
-              			 <?=$this->formElement($form->get('submit'));?>
+							<?=$this->formElement($form->get('submit'));?>
 	    				</div>
               		</td>
+					<td></td>
+					<td></td>
 				</tr>
               	<?=$this->form()->closeTag() ?>
               	</table>
             </div>
-             <div class="flashMessages">
 				<?php 
-					foreach($this->flashMessenger()->getMessages() as $message) { 
-					     echo $message;
-					} 
-			     ?>
+					foreach($this->flashMessenger()->getMessages() as $message):?>
+					    <div class="flashMessages">
+							<?=$message;?>
+						</div>
+					<?endforeach;?>
 		    </div>
         </div>
     </div>

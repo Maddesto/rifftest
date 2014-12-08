@@ -56,12 +56,11 @@
               	</table>
               	<a href="<?php echo $this->url('register') ?>"><?php echo $this->translate('Register') ?></a>
             </div>
-            <div class="flashMessages">
-				<?php 
-					foreach($this->flashMessenger()->getMessages() as $message) { 
-					     echo $message;
-					} 
-			     ?>
+				<?php foreach($this->flashMessenger()->getMessages() as $message):?>
+					<div class="flashMessages">
+						<?=$message;?>
+					</div>
+				<?endforeach;?> 
 		    </div>
         </div>
     </div>

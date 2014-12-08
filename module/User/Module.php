@@ -71,6 +71,7 @@ class Module
 	}
 	
 	public function checkAcl(MvcEvent $e) {
+		$router = $e->getRouter();
 		$route = $e->getRouteMatch()->getMatchedRouteName();
 		$app = $e->getApplication();
 		$locator = $app->getServiceManager();
@@ -93,7 +94,6 @@ class Module
 		}
 	 
 		if (/*$e->getViewModel()->acl->hasResource($route) && */!$e->getViewModel()->acl->isAllowed($userRole, $route)) {
-			$router = $e->getRouter();
 			if($userRole == 'user'){
 				$url = $router->assemble(array('username'=>$authAdapter->getIdentity()->username), array('name' => 'home/view'));
 			}elseif($userRole == 'admin'){
